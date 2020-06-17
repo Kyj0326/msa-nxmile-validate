@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: 'validate'
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    url: jdbc:mariadb://database-msa.cdnxkpguqzfr.ap-northeast-2.rds.amazonaws.com/study
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: admin
+    password: msaadmin!
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true

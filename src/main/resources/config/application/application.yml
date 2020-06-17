@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: nxmile-member-api
+  profiles:
+    active: dev
+
+#logging:
+  #config: classpath:config/log/${spring.profiles.active}.xml
+#  config: classpath:config/log/logback-dev.xml
