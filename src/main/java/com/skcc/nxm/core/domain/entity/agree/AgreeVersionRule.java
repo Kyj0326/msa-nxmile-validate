@@ -14,44 +14,24 @@ import java.util.List;
 @Entity @Getter @Setter
 public class AgreeVersionRule {
 
-    @Id
+    @Id @GeneratedValue
     @Column( name = "agr_rule_id")
     private Long id;
 
-    @OneToMany( mappedBy = "agreeVersionRule" )
-    private List<AgreeVersion> agreeVersions = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "agr_ver_cd")
+    private AgreeVersion agreeVersion;
 
-    @OneToMany( mappedBy = "agreeVersionRule")
-    private List<CoopCardCode> coopCardCodes = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "coop_crd_cd")
+    private CoopCardCode coopCardCode;
 
-    @OneToMany( mappedBy = "agreeVersionRule")
-    private List<OrganCode> organCodes = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "organ_cd")
+    private OrganCode organCode;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    private LocalDateTime validFromDate = LocalDateTime.MAX;
+    private LocalDateTime validFromDate = LocalDateTime.now();
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    private LocalDateTime validToDate = LocalDateTime.MAX;
-
-    @PrePersist
-    public void prePersist() {
-        this.validFromDate = this.validFromDate == null ? LocalDateTime.now() : this.validFromDate;
-        this.validToDate = this.validToDate == null ? LocalDateTime.MAX : this.validToDate;
-    }
-
-    public void addAgreeVersion(AgreeVersion agreeVersion){
-        agreeVersions.add(agreeVersion);
-        agreeVersion.setAgreeVersionRule(this);
-    }
-
-    public void addCoopCardCode(CoopCardCode coopCardCode){
-        coopCardCodes.add(coopCardCode);
-        coopCardCode.setAgreeVersionRule(this);
-    }
-
-    public void addOrganCode(OrganCode organCode){
-        organCodes.add(organCode);
-        organCode.setAgreeVersionRule(this);
-    }
+    private LocalDateTime validToDate = LocalDateTime.now();
 
 }

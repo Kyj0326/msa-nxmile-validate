@@ -10,7 +10,7 @@ import java.util.List;
 @Entity @Getter @Setter
 public class AgreeVersionInfoAuthority {
 
-    @Id
+    @Id @GeneratedValue
     @Column(name="agr_auth_id")
     private Long id;
 

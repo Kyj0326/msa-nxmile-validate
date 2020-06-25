@@ -15,4 +15,6 @@ public class OrganDto {
 
     private String organName;
 
+    private String organFlag;
+
 }

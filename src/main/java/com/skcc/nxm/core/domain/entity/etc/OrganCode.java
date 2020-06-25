@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity @Getter @Setter
 public class OrganCode {
@@ -17,8 +19,15 @@ public class OrganCode {
 
     private String organFlag;
 
-    @ManyToOne
-    @JoinColumn( name = "agr_rule_id")
-    private AgreeVersionRule agreeVersionRule;
+
+    @OneToMany(mappedBy = "organCode")
+    private List<AgreeVersionRule> agreeVersionRules = new ArrayList<>();
+
+    public void addAgreeVersionRule(AgreeVersionRule agreeVersionRule){
+        agreeVersionRules.add(agreeVersionRule);
+        agreeVersionRule.setOrganCode(this);
+
+    }
+
 
 }

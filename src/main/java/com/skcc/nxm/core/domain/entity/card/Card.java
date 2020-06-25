@@ -24,6 +24,7 @@ public class Card {
 
     private String issueDay;
 
+    @Enumerated(value = EnumType.STRING)
     private Status status;
 
 

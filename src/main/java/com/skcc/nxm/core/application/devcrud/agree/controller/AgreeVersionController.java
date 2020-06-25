@@ -7,6 +7,7 @@ import com.skcc.nxm.core.application.devcrud.agree.dto.AgreeVersionDto;
 import com.skcc.nxm.core.domain.entity.agree.AgreeVersion;
 import com.skcc.nxm.core.domain.entity.agree.AgreeVersionInfoAuthority;
 import com.skcc.nxm.core.domain.entity.agree.AgreeVersionRule;
+import com.skcc.nxm.core.domain.entity.agree.MarketingFlag;
 import com.skcc.nxm.core.domain.entity.card.CoopCardCode;
 import com.skcc.nxm.core.domain.entity.etc.OrganCode;
 import com.skcc.nxm.core.port_infra.persistent.agree.IAgreeVersionInfoAuthorityRepository;
@@ -45,10 +46,13 @@ public class AgreeVersionController {
         agreeVersion.setMarketingFlag(agreeVersionDto.getMarketingFlag());
         agreeVersion.setAgreeVersionFlag(agreeVersionDto.getAgreeVersionFlag());
 
+        agreeVersionRepository.save(agreeVersion);
+
         AgreeVersionInfoAuthority agreeVersionInfoAuthority = new AgreeVersionInfoAuthority();
 
         agreeVersionInfoAuthority.setItemCode(agreeVersionDto.getItemCode());
         agreeVersion.addAgreeVersionInfoAuthority(agreeVersionInfoAuthority);
+        agreeVersionInfoAuthorityRepository.save(agreeVersionInfoAuthority);
 
         AgreeVersionRule agreeVersionRule = new AgreeVersionRule();
 
@@ -58,15 +62,62 @@ public class AgreeVersionController {
         OrganCode organCode = organCodeRepository.findById(agreeVersionDto.getOrganCode())
                                 .orElseThrow(() -> new BusinessException("OrganCode NotFound", ErrorCode.ENTITY_NOT_FOUND));
 
-        agreeVersionRule.addCoopCardCode(coopCardCode);
-        agreeVersionRule.addAgreeVersion(agreeVersion);
-        agreeVersionRule.addOrganCode(organCode);
+        agreeVersion.addAgreeVersionRules(agreeVersionRule);
+        coopCardCode.addAgreeVersionRule(agreeVersionRule);
+        organCode.addAgreeVersionRule(agreeVersionRule);
 
-        agreeVersionRepository.save(agreeVersion);
-        agreeVersionInfoAuthorityRepository.save(agreeVersionInfoAuthority);
         agreeVersionRuleRepository.save(agreeVersionRule);
 
+
         return ResponseEntity.ok(agreeVersionDto);
+
+    }
+
+
+    @PostMapping(value = "/test")
+    public void createAgreeVersion(){
+
+        AgreeVersion agreeVersion = new AgreeVersion();
+
+        agreeVersion.setAgreeVersion("DB200625");
+        agreeVersion.setMarketingFlag(MarketingFlag.IM);
+        agreeVersion.setAgreeVersionFlag("3");
+
+        agreeVersionRepository.save(agreeVersion);
+
+    }
+
+    @PostMapping(value = "/test2")
+    public void createAgreeVersion2(){
+
+        AgreeVersionInfoAuthority agreeVersionInfoAuthority = new AgreeVersionInfoAuthority();
+
+        agreeVersionInfoAuthority.setItemCode("RESD001");
+
+        AgreeVersion agreeVersion = agreeVersionRepository.findById("DB200625").orElseThrow(() -> new BusinessException("TEST", ErrorCode.ENTITY_NOT_FOUND));
+        agreeVersion.addAgreeVersionInfoAuthority(agreeVersionInfoAuthority);
+        agreeVersionInfoAuthorityRepository.save(agreeVersionInfoAuthority);
+
+    }
+
+
+
+    @PostMapping(value = "/test3")
+    public void createAgreeVersion3(){
+
+        AgreeVersionRule agreeVersionRule = new AgreeVersionRule();
+
+        CoopCardCode coopCardCode = coopCardCodeRepository.findById("A001")
+                .orElseThrow(() -> new BusinessException("CoopCardCodeNotFound", ErrorCode.ENTITY_NOT_FOUND));
+
+        OrganCode organCode = organCodeRepository.findById("7065")
+                .orElseThrow(() -> new BusinessException("OrganCode NotFound", ErrorCode.ENTITY_NOT_FOUND));
+
+        coopCardCode.addAgreeVersionRule(agreeVersionRule);
+        organCode.addAgreeVersionRule(agreeVersionRule);
+
+        agreeVersionRuleRepository.save(agreeVersionRule);
+
 
     }
 

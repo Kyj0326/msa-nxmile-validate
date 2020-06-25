@@ -20,9 +20,9 @@ public class CardDto {
 
     private String coopCardCode;
 
-    private String hName;
+    private String koreanName;
 
-    private String eName;
+    private String englishName;
 
     private String issueMchtNo;
 

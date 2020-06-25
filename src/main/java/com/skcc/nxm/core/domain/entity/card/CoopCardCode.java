@@ -1,5 +1,6 @@
 package com.skcc.nxm.core.domain.entity.card;
 
+import com.skcc.nxm.core.domain.entity.agree.AgreeVersion;
 import com.skcc.nxm.core.domain.entity.agree.AgreeVersionRule;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,13 +25,17 @@ public class CoopCardCode {
     @OneToMany( mappedBy = "coopCardCode", cascade = CascadeType.ALL)
     private List<Card> cards = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn( name = "agr_rule_id")
-    private AgreeVersionRule agreeVersionRule;
+    @OneToMany( mappedBy = "coopCardCode", cascade = CascadeType.ALL)
+    private List<AgreeVersionRule> agreeVersionRules = new ArrayList<>();
 
     public void addCard(Card card){
         cards.add(card);
         card.setCoopCardCode(this);
+    }
+
+    public void addAgreeVersionRule(AgreeVersionRule agreeVersionRule){
+        agreeVersionRules.add(agreeVersionRule);
+        agreeVersionRule.setCoopCardCode(this);
     }
 
 

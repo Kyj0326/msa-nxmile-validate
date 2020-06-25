@@ -44,14 +44,17 @@ public class CardController {
 
         card.setStatus(Status.A);
         card.setCardNo(cardDto.getCardNo());
+        cardRepository.save(card);
 
         CoopCardCode coopCardCode = new CoopCardCode();
         coopCardCode.setCoopCardCode(cardDto.getCoopCardCode());
         coopCardCode.setIssueMchtNo(cardDto.getIssueMchtNo());
-        coopCardCode.setEName(cardDto.getEName());
-        coopCardCode.setHName(cardDto.getHName());
+        coopCardCode.setEName(cardDto.getKoreanName());
+        coopCardCode.setHName(cardDto.getEnglishName());
 
         coopCardCode.addCard(card);
+
+        coopCardCodeRepository.save(coopCardCode);
 
         CardFetch cardFetch = new CardFetch();
 
@@ -61,9 +64,9 @@ public class CardController {
 
         cardFetch.addCoopCardCode(coopCardCode);
 
-        cardRepository.save(card);
+
         cardFetchRepository.save(cardFetch);
-        coopCardCodeRepository.save(coopCardCode);
+
 
         return ResponseEntity.ok(cardDto);
 
