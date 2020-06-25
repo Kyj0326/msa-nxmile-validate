@@ -2,15 +2,15 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: 'validate'
+      ddl-auto: 'create'
     properties:
       hibernate:
         format_sql: true
   datasource:
-    url: jdbc:mariadb://database-msa.cdnxkpguqzfr.ap-northeast-2.rds.amazonaws.com/study
+    url: jdbc:mariadb://database-study-2.cdnxkpguqzfr.ap-northeast-2.rds.amazonaws.com/study
     driver-class-name: org.mariadb.jdbc.Driver
-    username: admin
-    password: msaadmin!
+    username: nxmileadmin
+    password: nxmileadmin12#
   jackson:
     deserialization:
       fail-on-unknown-properties: true

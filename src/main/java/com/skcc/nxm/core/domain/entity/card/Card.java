@@ -1,10 +1,13 @@
 package com.skcc.nxm.core.domain.entity.card;
 
 import com.skcc.nxm.core.domain.entity.member.Member;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
+@Entity @Setter
+@Getter
 public class Card {
 
     @Id

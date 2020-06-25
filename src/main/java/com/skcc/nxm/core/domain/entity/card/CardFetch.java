@@ -3,10 +3,7 @@ package com.skcc.nxm.core.domain.entity.card;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +12,13 @@ import java.util.List;
 @Getter
 public class CardFetch {
 
-    @Id
+    @Id @GeneratedValue
+    @Column(name = "card_fetch_id")
     private Long id;
 
-    @OneToMany
-    @JoinColumn(name = "coop_crd_cd")
-    private List<CoopCardCode> coopCardCode = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn( name = "coop_crd_cd")
+    private CoopCardCode coopCardCode;
 
     private String fetchSeq;
 
@@ -31,5 +29,10 @@ public class CardFetch {
     private String cardEndNumber;
 
     private String cycleSeq;
+
+    public void addCoopCardCode(CoopCardCode coopCardCode){
+        this.coopCardCode=coopCardCode;
+    }
+
     
 }

@@ -50,7 +50,7 @@
     </logger>
 
 
-    <logger name="com.skcc.template" additivity="false" level="DEBUG">
+    <logger name="com.skcc" additivity="false" level="DEBUG">
         <appender-ref ref="CONSOLE" />
     </logger>
 

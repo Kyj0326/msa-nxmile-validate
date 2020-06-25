@@ -6,6 +6,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @Builder
@@ -15,11 +17,14 @@ import java.time.LocalDateTime;
 @Entity
 public class CommonCode {
 
-    @EmbeddedId
-    private Code commCode = new Code();
+    @Id
+    @Column( name = "common_code")
+    private String commonCode;
+
+    @OneToMany( mappedBy = "commonCode" ,fetch = FetchType.EAGER)
+    private List<Code> code = new ArrayList<>();
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "grpCode")
     private GroupCode grpCode;
 
@@ -35,9 +40,16 @@ public class CommonCode {
 
     private boolean defaultYn;
 
+    public void addCode(Code code){
+        this.getCode().add(code);
+        code.setCommonCode(this);
+    }
+
     @PrePersist
     public void prePersist() {
         this.validFromDate = this.validFromDate == null ? LocalDateTime.now() : this.validFromDate;
         this.validToDate = this.validToDate == null ? LocalDateTime.MAX : this.validToDate;
+        this.applyYn = true;
     }
+
 }

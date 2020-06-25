@@ -3,16 +3,10 @@
 
     <!-- CONSOLE LOG APPENDER -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
-                <timestampFormat>yyyy-MM-dd'T'HH:mm:ss.SSSX</timestampFormat>
-                <timestampFormatTimezoneId>Etc/UTC</timestampFormatTimezoneId>
-
-                <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
-                    <prettyPrint>false</prettyPrint>
-                </jsonFormatter>
-                <appendLineSeparator>true</appendLineSeparator>
-            </layout>
+        <encoder>
+            <charset>UTF-8</charset>
+            <!-- <pattern>%highlight(%date{"yyyy-MM-dd HH:mm:ss.SSS"}) %highlight(%-5level) [%green(%X{sessionId})] %yellow(%logger{36}@%method\(%line\)) - %msg%n%throwable</pattern> -->
+            <pattern>%cyan(%date{"yyyy-MM-dd HH:mm:ss.SSS"}) %highlight(%-5level) %magenta(${PID:- }) --- %cyan[%8.15t] - %blue(%-40.40logger{36}) %blue[%3.10line] %red(:) %msg%n%throwable</pattern>
         </encoder>
     </appender>
     
@@ -30,7 +24,7 @@
     </logger>
 
 
-    <logger name="com.skcc.template" additivity="false" level="DEBUG">
+    <logger name="com.skcc" level="INFO">
         <appender-ref ref="CONSOLE" />
     </logger>
 

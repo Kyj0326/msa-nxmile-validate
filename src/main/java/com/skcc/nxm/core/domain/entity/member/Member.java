@@ -20,7 +20,7 @@ public abstract class Member {
 
     private String ci;
 
-    @OneToMany( mappedBy = "member" )
+    @OneToMany( mappedBy = "member" , fetch = FetchType.LAZY)
     private List<Card> card = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
