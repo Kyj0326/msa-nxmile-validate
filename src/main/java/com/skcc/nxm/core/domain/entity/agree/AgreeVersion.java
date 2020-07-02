@@ -1,6 +1,7 @@
 package com.skcc.nxm.core.domain.entity.agree;
 
 
+import com.skcc.nxm.core.domain.entity.member.MemberAgreeMst;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,6 +30,9 @@ public class AgreeVersion {
     @OneToMany(mappedBy = "agreeVersion")
     private List<AgreeVersionRule> agreeVersionRules = new ArrayList<>();
 
+    @OneToMany(mappedBy = "agreeVersion")
+    private List<MemberAgreeMst> memberAgreeMsts = new ArrayList<>();
+
     public void addAgreeVersionInfoAuthority(AgreeVersionInfoAuthority agreeVersionInfoAuthority){
         agreeVersionInfoAuthoritys.add(agreeVersionInfoAuthority);
         agreeVersionInfoAuthority.setAgreeVersion(this);
@@ -37,6 +41,11 @@ public class AgreeVersion {
     public void addAgreeVersionRules(AgreeVersionRule agreeVersionRule){
         agreeVersionRules.add(agreeVersionRule);
         agreeVersionRule.setAgreeVersion(this);
+    }
+
+    public void addMemberAgreeMsts(MemberAgreeMst memberAgreeMst){
+        memberAgreeMsts.add(memberAgreeMst);
+        memberAgreeMst.setAgreeVersion(this);
     }
 
 }

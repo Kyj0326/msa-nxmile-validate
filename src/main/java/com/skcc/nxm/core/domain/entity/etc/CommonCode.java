@@ -31,7 +31,7 @@ public class CommonCode {
     private String name;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    private LocalDateTime validFromDate = LocalDateTime.MAX;
+    private LocalDateTime validFromDate = LocalDateTime.now();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime validToDate = LocalDateTime.MAX;

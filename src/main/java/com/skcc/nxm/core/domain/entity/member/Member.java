@@ -18,10 +18,8 @@ public abstract class Member {
     @Column(name = "member_id")
     private Long id;
 
-    private String ci;
-
     @OneToMany( mappedBy = "member" , fetch = FetchType.LAZY)
-    private List<Card> card = new ArrayList<>();
+    private List<Card> cards = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -34,5 +32,13 @@ public abstract class Member {
 
     @Embedded
     private OffInfo offInfo;
+
+    public void addCard(Card card){
+        cards.add(card);
+        card.setMember(this);
+    }
+
+
+
 
 }

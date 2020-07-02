@@ -34,7 +34,6 @@ public class CardController {
     private final ICardFetchRepository cardFetchRepository;
     private final ICardRepository cardRepository;
     private final ICoopCardCodeRepository coopCardCodeRepository;
-    private final EntityManager em;
 
 
     @PostMapping

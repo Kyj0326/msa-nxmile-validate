@@ -1,12 +1,13 @@
 package com.skcc.nxm.core.domain.entity.member;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 
-@Embeddable
+@Embeddable @Builder
 @Getter @AllArgsConstructor @NoArgsConstructor
 public class HomeInfo {
 
