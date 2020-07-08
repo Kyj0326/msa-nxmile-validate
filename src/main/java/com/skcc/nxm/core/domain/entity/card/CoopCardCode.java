@@ -1,6 +1,5 @@
 package com.skcc.nxm.core.domain.entity.card;
 
-import com.skcc.nxm.core.domain.entity.agree.AgreeVersion;
 import com.skcc.nxm.core.domain.entity.agree.AgreeVersionRule;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Entity @Getter @Setter
 public class CoopCardCode {
@@ -19,6 +19,8 @@ public class CoopCardCode {
     private String hName;
 
     private String eName;
+
+    private String coopCoCd;
 
     private String issueMchtNo;
 
@@ -36,6 +38,14 @@ public class CoopCardCode {
     public void addAgreeVersionRule(AgreeVersionRule agreeVersionRule){
         agreeVersionRules.add(agreeVersionRule);
         agreeVersionRule.setCoopCardCode(this);
+    }
+
+    public AtomicBoolean validate(String coopCoCd, String issueMchtNo){
+        AtomicBoolean result = new AtomicBoolean(false);
+        if( this.coopCoCd.equals(coopCoCd) || this.issueMchtNo.equals(issueMchtNo) ){
+            result.set(true);
+        }
+        return result;
     }
 
 

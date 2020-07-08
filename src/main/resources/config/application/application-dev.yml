@@ -11,6 +11,15 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: nxmileadmin
     password: nxmileadmin12#
-#  jackson:
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8081/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 #    deserialization:
 #      fail-on-unknown-properties: true

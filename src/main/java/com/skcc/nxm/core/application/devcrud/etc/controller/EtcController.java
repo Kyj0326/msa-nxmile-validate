@@ -2,12 +2,8 @@ package com.skcc.nxm.core.application.devcrud.etc.controller;
 
 
 import com.skcc.nxm.core.application.devcrud.etc.dto.CodeReqDto;
-import com.skcc.nxm.core.application.devcrud.etc.dto.CodeResDto;
 import com.skcc.nxm.core.application.devcrud.etc.dto.OrganDto;
-import com.skcc.nxm.core.domain.entity.etc.Code;
-import com.skcc.nxm.core.domain.entity.etc.CommonCode;
-import com.skcc.nxm.core.domain.entity.etc.GroupCode;
-import com.skcc.nxm.core.domain.entity.etc.OrganCode;
+import com.skcc.nxm.core.domain.entity.etc.*;
 import com.skcc.nxm.core.port_infra.persistent.etc.ICodeRepository;
 import com.skcc.nxm.core.port_infra.persistent.etc.ICommonCodeRepository;
 import com.skcc.nxm.core.port_infra.persistent.etc.IGroupCodeRepository;
@@ -46,30 +42,27 @@ public class EtcController {
         CommonCode commonCode = new CommonCode();
         Code code = new Code();
 
-        groupCode.setGrpCode(codeDto.getGroupCode());
+        GrpCommonCode grpCommonCode = GrpCommonCode.ORGANCODE_R1;
+        groupCode.setGrpCode(grpCommonCode.getGroupCode());
         groupCode.setName(codeDto.getName());
+        groupCodeRepository.save(groupCode);
 
-        commonCode.setCommonCode(codeDto.getCommonCode());
+        commonCode.setCommonCode(grpCommonCode.getCommonCode());
         commonCode.setName(codeDto.getName());
-
+        commonCodeRepository.save(commonCode);
         groupCode.addCommonCode(commonCode);
 
         code.setCode(codeDto.getCode());
         code.setName(codeDto.getName());
-
         commonCode.addCode(code);
-
-        groupCodeRepository.save(groupCode);
-        CommonCode save = commonCodeRepository.save(commonCode);
         codeRepository.save(code);
 
-        CodeResDto codeResDto = CodeResDto.builder()
-                .code(save.getCode().toString())
-                .groupCode(save.getGrpCode().toString())
-                .name(save.getName())
-                .commonCode(save.getCommonCode()).build();
 
-        return ResponseEntity.ok(codeResDto);
+
+
+
+
+        return ResponseEntity.ok(codeDto);
 
     }
 

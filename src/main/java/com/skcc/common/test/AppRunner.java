@@ -17,4 +17,5 @@ public class AppRunner implements ApplicationRunner {
         log.info("TEST@@@@@##############");
         log.trace("TEST@@@@@##############");
     }
+
 }

@@ -2,7 +2,7 @@ package com.skcc.nxm.infrastructure.external_system;
 
 import com.skcc.common.error.handler.ExternalErrorHandler;
 import com.skcc.common.intercept.RestTemplateClientHttpRequestInterceptor;
-import com.skcc.nxm.core.application.object.command.RequestDto;
+import com.skcc.nxm.core.application.object.command.CardCodeValidateDto;
 import com.skcc.nxm.core.port_infra.external_system.IExternalSampleSystem;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -29,7 +29,7 @@ public class ExternalCallSample_Atype implements IExternalSampleSystem {
     }
 
     @Override
-    public ResponseEntity<String> doSomeExternalLogic(final RequestDto requestDto ) {
+    public ResponseEntity<String> doSomeExternalLogic(final CardCodeValidateDto requestDto ) {
         log.debug("[ExternalCallSample_Atype Called] doSomeExternalLogic");
 
         ResponseEntity<String> result = restTemplate.getForEntity("/member/sample", String.class);

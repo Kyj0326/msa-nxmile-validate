@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: nxmile-member-api
+    name: nxmile-validate-api
   profiles:
     active: dev
 
